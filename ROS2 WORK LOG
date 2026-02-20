@@ -1,0 +1,21 @@
+Current Capabilities/Updates of ROS2 programs (As of February 20, 2026)
+
+- Completed:
+
+  - ROS2 Workspace (handTracking_ws)
+    - Imported urdf of Panda Arm (physical constraints and values)
+    - Panda Arm .stl/.dae 's
+    - RViz launching with joint state publisher
+    - Rviz simulation launching through one terminal
+
+
+- To do:
+
+  - Gazebo launching
+  - Arduino --> Python --> ROS2 Interfacing (serial communication)
+
+
+- Ideas:
+
+  - Possibly interface the joint state publisher with values tracked by arduino program, i.e. finger flexing mapped to gripper joint, gyroscope values affecting arm joint positions?
+
