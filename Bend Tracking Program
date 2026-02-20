@@ -1,0 +1,141 @@
+// Chase Torre
+// Arduino NANO 33 IoT
+// Senior Project (Fall 2025 - Spring 2026)
+// Hand Tracking Gloves
+
+//pin initialization 
+const int finger1 = A0; 
+const int finger2 = A1;
+const int finger3 = A2;
+const int finger4 = A3;
+const int finger5 = A6;
+// *note* A4 and A5 are SDA/SCL, so we aren't using them here
+
+void setup() {
+  Serial.begin(9600); //setting io and baud rate
+  pinMode(finger1, INPUT);  // pinky
+  pinMode(finger2, INPUT);  // ring
+  pinMode(finger3, INPUT);  // middle
+  pinMode(finger4, INPUT);  // index
+  pinMode(finger5, INPUT);  // thumb
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Constant Initialization 
+
+const float VCC = 3.2; // measured voltage 
+const float R_DIV = 10000.0; // 10k Ohm resistors 
+const float STRAIGHT_RESISTANCE = 12000.0; // resistance of flex sensor when straight
+const float BEND_RESISTANCE = 48000.0; // resistance of flex sensor at 90 deg
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Value Reading
+
+// Pinky Readings
+
+void loop() { //reading and printing analog voltages of each finger bend
+
+  int bendValue1 = analogRead(finger1); // reads digital integer representation 
+
+  float voltage1 = analogRead(finger1) * (VCC/1023); // Converts digital integer to voltage
+
+  float resistance1 = R_DIV * (VCC / voltage1 - 1.0); // Calculates output resistance
+
+  float angle1 = map(resistance1, STRAIGHT_RESISTANCE, BEND_RESISTANCE, // Calculates output flex angle
+                   0, 90.0);
+
+
+
+  Serial.println("Value " + string(bendValue1)); // Print Digital Integer
+
+  Serial.println("Voltage: " + String(voltage1) + " V"); // Print Output Voltage
+
+  Serial.println("Resistance: " + String(resistance1) + " ohms"); // Print Output Resistance
+
+  Serial.println("Bend: " + String(angle1) + " degrees"); // Print Bend Angle
+
+  Serial.println(" "); // New Line
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Ring Readings
+
+  int bendValue2 = analogRead(finger2); 
+  float voltage2 = analogRead(finger2) * (VCC/1023); 
+  float resistance2 = R_DIV * (VCC / voltage2 - 1.0);  
+  float angle2 = map(resistance2, STRAIGHT_RESISTANCE, BEND_RESISTANCE,
+                   0, 90.0);
+
+  Serial.println("Value " + string(bendValue2)); 
+ 
+  Serial.println("Voltage: " + String(voltage2) + " V"); 
+
+  Serial.println("Resistance: " + String(resistance2) + " ohms"); 
+
+  Serial.println("Bend: " + String(angle2) + " degrees"); 
+
+  Serial.println(" "); // New Line
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Middle Readings
+
+  int bendValue3 = analogRead(finger3); 
+  float voltage3 = analogRead(finger3) * (VCC/1023); 
+  float resistance3 = R_DIV * (VCC / voltage3 - 1.0);
+  float angle3 = map(resistance1, STRAIGHT_RESISTANCE, BEND_RESISTANCE,
+                   0, 90.0);
+
+  Serial.println("Value " + string(bendValue3)); 
+
+  Serial.println("Voltage: " + String(voltage3) + " V"); 
+
+  Serial.println("Resistance: " + String(resistance3) + " ohms"); 
+
+  Serial.println("Bend: " + String(angle3) + " degrees"); 
+
+  Serial.println(" "); 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Index Readings
+
+  int bendValue4 = analogRead(finger4); 
+  float voltage4 = analogRead(finger4) * (VCC/1023); 
+  float resistance4 = R_DIV * (VCC / voltage4 - 1.0);
+  float angle4 = map(resistance4, STRAIGHT_RESISTANCE, BEND_RESISTANCE,
+                   0, 90.0);
+
+  Serial.println("Value " + string(bendValue4)); 
+
+  Serial.println("Voltage: " + String(voltage4) + " V"); 
+
+  Serial.println("Resistance: " + String(resistance4) + " ohms"); 
+
+  Serial.println("Bend: " + String(angle4) + " degrees");
+
+  Serial.println(" "); 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Thumb Readings
+
+  int bendValue5 = analogRead(finger5);  
+  float voltage5 = analogRead(finger5) * (VCC/1023); 
+  float resistance5 = R_DIV * (VCC / voltage5 - 1.0);
+  float angle5 = map(resistance5, STRAIGHT_RESISTANCE, BEND_RESISTANCE,
+                   0, 90.0);
+
+  Serial.println("Value " + string(bendValue5)); 
+
+  Serial.println("Voltage: " + String(voltage5) + " V"); 
+
+  Serial.println("Resistance: " + String(resistance5) + " ohms"); 
+
+  Serial.println("Bend: " + String(angle5) + " degrees"); 
+
+  Serial.println(" ");
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  delay(500); // value display delay
+}
