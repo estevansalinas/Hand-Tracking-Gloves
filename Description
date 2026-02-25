@@ -1,0 +1,22 @@
+Chase Torre
+UHCL Senior Project II Spring 2026
+
+
+
+--DESCRIPTION--
+
+The two listed .stl's are the 3D models I created for 3D printing both the Arduino Nano 33 Iot and mini breadboard housing.
+I wanted to create easy access to both the MCU and the breadboard, so I created housings that can be threaded onto the glove itself, 
+along with 0.2 mm tolerance lids for a snug fit. The housings themselves are very durable, with a 2 mm thickness at 25% infill. 
+
+
+
+--Current Features--
+
+- Both housings are made out of black PLA basic, and printed on a Flashforge Adventurer 5M Pro using the Orca-Flashforge slicer. 
+- Outer holes, with a 3 mm diameter, to allow for threading the housings onto the glove.
+- Velcro mounts for MCU and breadboard (in progress) 
+- Two cutouts for the breadboard shell, for connections to the MCU and flex sensors.
+- Four cutouts for the Nano shell, one for USB access, and the rest for connections to the breadboard.
+
+
