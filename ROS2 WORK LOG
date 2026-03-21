@@ -1,4 +1,4 @@
-Current Capabilities/Updates of ROS2 programs (As of February 20, 2026)
+Current Capabilities/Updates of ROS2 programs (As of March 21, 2026)
 
 - Completed:
 
@@ -7,15 +7,13 @@ Current Capabilities/Updates of ROS2 programs (As of February 20, 2026)
     - Panda Arm .stl/.dae 's
     - RViz launching with joint state publisher
     - Rviz simulation launching through one terminal
+    - Gazebo launching
 
 
 - To do:
 
-  - Gazebo launching
+  - Tune controller physics (PID controller for both gripper and arm)
   - Arduino --> Python --> ROS2 Interfacing (serial communication)
 
 
-- Ideas:
-
-  - Possibly interface the joint state publisher with values tracked by arduino program, i.e. finger flexing mapped to gripper joint, gyroscope values affecting arm joint positions?
 
