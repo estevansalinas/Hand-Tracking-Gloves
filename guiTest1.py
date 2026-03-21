@@ -7,8 +7,8 @@ import serial.tools.list_ports
 
 
 #collection of variables to make the GUI work
-tempValue = "A1024B1024C1024D1024E1024"
-currentValue = "A1B1C1D1E1"
+tempValue = "A1024B1024C1024D1024E1024F0.000G0.000H0.000I0.000J0.000K0.000"
+currentValue = "A1B1C1D1E1F1.000G3.000H2.000I5.000J6.000K2.000"
 numbers = [float(num) for num in re.findall(r'\d+\.?\d*', currentValue)]
 voltMax = [float(num) for num in re.findall(r'\d+\.?\d*', tempValue)]
 percents = [0,0,0,0,0]
@@ -24,6 +24,12 @@ ringLabel = Label(root)
 middleLabel = Label(root)
 indexLabel = Label(root)
 thumbLabel = Label(root)
+gxLabel = Label(root) 
+gyLabel = Label(root)
+gzLabel = Label(root)
+axLabel = Label(root)
+ayLabel = Label(root)
+azLabel = Label(root)
 
 #start updating the values
 def run():
@@ -40,55 +46,79 @@ def stop():
     stopButton.config(state=DISABLED)
 
 #break down recieved string to displayable values
+def stringFetch():
+    global arduino
+    global update
+    if(update):
+    	code = "91823"
+    	arduino.write(bytes(code,   'utf-8'))
+    
+    root.after(50,stringtoValues)
+
 def stringtoValues():
     global pinkyLabel
     global ringLabel
     global middleLabel
     global indexLabel
     global thumbLabel
+    global gxLabel
+    global gyLabel
+    global gzLabel
+    global axLabel
+    global ayLabel
+    global azLabel
     global currentValue
     global stringLabel
     global voltMax
     global percents
+    global numbers
+
 
     #test GUI case, display the sliders for creating test strings
     if(update):
+        currentValue = arduino.readline().decode("utf-8")
         numbers = [float(num) for num in re.findall(r'\d+\.?\d*', currentValue)]
         percents[0] = (numbers[0]/voltMax[0])*100 #pinky
         percents[1] = (numbers[1]/voltMax[1])*100 #ring
         percents[2] = (numbers[2]/voltMax[2])*100 #middle
         percents[3] = (numbers[3]/voltMax[3])*100 #index
         percents[4] = (numbers[4]/voltMax[4])*100 #thumb
-
+	
         arrayCheck = [0,1,2,3,4]
         for x in arrayCheck:
             if percents[x] > 100:
                 voltMax[x] = numbers[x]
 
+        pinkyLabel.config(text="Pinky:"+ str(percents[0])+"%",font=("Arial", 15))
+        ringLabel.config(text="Ring:"+str(percents[1])+"%",font=("Arial", 15))
+        middleLabel.config(text="Middle:"+str(percents[2])+"%",font=("Arial", 15))
+        indexLabel.config(text="Index:"+str(percents[3])+"%",font=("Arial", 15))
+        thumbLabel.config(text="Thumb:"+str(percents[4])+"%",font=("Arial", 15))
+        gxLabel.config(text="Gyroscope X:"+str(numbers[5]),font=("Arial", 15))
+        gyLabel.config(text="Gyroscope Y:"+str(numbers[6]),font=("Arial", 15))
+        gzLabel.config(text="Gyroscope Z:"+str(numbers[7]),font=("Arial", 15))
+        axLabel.config(text="Acceleration X:"+str(numbers[8]),font=("Arial", 15))
+        ayLabel.config(text="Acceleration Y:"+str(numbers[9]),font=("Arial", 15))
+        azLabel.config(text="Acceleration Z:"+str(numbers[10]),font=("Arial", 15))
+        pinkyLabel.grid(row=3, column=3, pady=10)
+        ringLabel.grid(row=4, column=3, pady=10)
+        middleLabel.grid(row=5, column=3, pady=10)
+        indexLabel.grid(row=6, column=3, pady=10)
+        thumbLabel.grid(row=7, column=3, pady=10)
+        gxLabel.grid(row=3, column=4,pady=10)
+        gyLabel.grid(row=4, column=4,pady=10)
+        gzLabel.grid(row=5, column=4,pady=10)
+        axLabel.grid(row=6, column=4,pady=10)
+        ayLabel.grid(row=7, column=4,pady=10)
+        azLabel.grid(row=8, column=4,pady=10)
+    root.after(50, stringFetch)
 
-        pinkyLabel.destroy()
-        ringLabel.destroy()
-        middleLabel.destroy()
-        indexLabel.destroy()
-        thumbLabel.destroy() 
-        pinkyLabel = Label(text="Pinky:"+ str(percents[0])+"%",font=("Arial", 20))
-        ringLabel = Label(text="Ring:"+str(percents[1])+"%",font=("Arial", 20))
-        middleLabel = Label(text="Middle:"+str(percents[2])+"%",font=("Arial", 20))
-        indexLabel = Label(text="Index:"+str(percents[3])+"%",font=("Arial", 20))
-        thumbLabel = Label(text="Thumb:"+str(percents[4])+"%",font=("Arial", 20))
-        pinkyLabel.grid(row=3, column=5, pady=10)
-        ringLabel.grid(row=4, column=5, pady=10)
-        middleLabel.grid(row=5, column=5, pady=10)
-        indexLabel.grid(row=6, column=5, pady=10)
-        thumbLabel.grid(row=7, column=5, pady=10) 
-    root.after(100,stringtoValues)
-
-caliLabel = Label(text="Keep fingers fully bent for 5 seconds",font=("Arial", 20))
+caliLabel = Label(text="Keep fingers fully bent for 5 seconds",font=("Arial", 15))
 #calibrate the max V for bending of fingers
 def caliClick():
     global caliLabel
-    caliLabel= Label(text="Keep fingers fully bent for 5 seconds",font=("Arial", 20))
-    caliLabel.grid(row=13,column=5)
+    caliLabel= Label(text="Keep fingers fully bent for 5 seconds",font=("Arial", 15))
+    caliLabel.grid(row=13,column=3)
     root.after(5000,bendMax)
 
 def bendMax():
@@ -96,9 +126,14 @@ def bendMax():
     global tempValue
     global caliLabel
     global voltMax
-    caliLabel.destroy()
+    caliLabel.config(text="Now lay hands flat on table for 5 seconds")
     tempValue = currentValue
     voltMax = [float(num) for num in re.findall(r'\d+\.?\d*', tempValue)]
+    root.after(5000,caliGloves)
+    
+def caliGloves():
+	global arduino
+	caliLabel.destroy()
 
 #Sync the choosen port in GUI to be able to recieve strings from the aurdino program
 def sync():
@@ -112,17 +147,16 @@ def sync():
     myLabel.destroy()
     ports = list(serial.tools.list_ports.comports())
     for p in ports:
-        if p.pid == 32855:
+        if "Arduino" in p.description:
             try:
                 arduino = serial.Serial(port=p.device,  baudrate=115200, timeout=.1)
-                time.sleep(3)
-                root.after(100,sync2)
+                root.after(3000,sync2)
                  
 
             except Exception as e:
                 texts = f"{p.name} failed due to {e}"
                 myLabel= Label(text=texts)
-                myLabel.grid(row=2,column=5)
+                myLabel.grid(row=2,column=3)
     
 
 
@@ -142,7 +176,7 @@ def sync2():
     data = data.decode("utf-8")
     if (data == "415"):
         myLabel= Label(text="Connected to the Hand Tracking Gloves")
-        myLabel.grid(row=2,column=5)
+        myLabel.grid(row=2,column=3)
         runButton.config(state=NORMAL)
         stopButton.config(state=NORMAL)
         calibrateButton.config(state=NORMAL)
