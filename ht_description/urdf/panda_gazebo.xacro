@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- ROS2 Control Interfacing -->
+
+<!-- Transmissions -->
+
+    <transmission name="panda_tran_1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="panda_joint1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="panda_motor_1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="panda_tran_2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="panda_joint2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="panda_motor_2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="panda_tran_3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="panda_joint3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="panda_motor_3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="panda_tran_4">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="panda_joint4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="panda_motor_4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="panda_tran_5">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="panda_joint5">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="panda_motor_5">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="panda_tran_6">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="panda_joint6">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="panda_motor_6">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="panda_tran_7">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="panda_joint7">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="panda_motor_7">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="panda_tran_8">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="panda_joint8">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="panda_motor_8">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+<!-- Friction Properties, set to 0.5 for all joints -->
+
+     <!-- Link0 -->
+    <gazebo reference="panda_link0">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Link1 -->
+    <gazebo reference="panda_link1">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Link2 -->
+    <gazebo reference="panda_link2">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Link3 -->
+    <gazebo reference="panda_link3">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Link4 -->
+    <gazebo reference="panda_link4">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Link5 -->
+    <gazebo reference="panda_link5">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Link6 -->
+    <gazebo reference="panda_link6">
+
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Link7 -->
+    <gazebo reference="panda_link7">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Link8 -->
+    <gazebo reference="panda_link8">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- LinkHand -->
+    <gazebo reference="panda_hand">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- LinkRightFinger -->
+    <gazebo reference="panda_rightfinger">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+        <!-- Left Finger Link -->
+    <gazebo reference="panda_leftfinger">
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+    <!--ROS2 Control Plugin-->
+    <gazebo>
+        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+            <robot_param>robot_description</robot_param>
+            <robot_param_node>robot_state_publisher</robot_param_node>
+            <parameters>$(find panda_controller)/config/panda_controllers.yaml</parameters>
+        </plugin>
+    </gazebo>
+
+</robot>
