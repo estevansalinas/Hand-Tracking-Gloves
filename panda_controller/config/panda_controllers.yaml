@@ -1,0 +1,32 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000 # Hz
+    use_sim_time: true
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+    gripper_controller:
+      type: position_controllers/JointGroupPositionController
+
+
+arm_velocity_controller: # gyroscope / positional tracking
+  ros__parameters:
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+
+
+gripper_controller: # bend (finger) tracking
+  ros__parameters:
+    joints:
+      - panda_finger_joint1
+      - panda_finger_joint2   
